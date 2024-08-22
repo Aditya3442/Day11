@@ -1,0 +1,35 @@
+class Activity{
+    int start,end;
+    public Activity(int start,int end){
+        this.start=start;
+        this.end=end;
+    }
+}
+class cmp implements Comparator<Activity>{
+    public int compare(Activity a,Activity b){
+        return a.end-b.end;
+    }
+}
+class Solution
+{
+    //Function to find the maximum number of activities that can
+    //be performed by a single person.
+    public static int activitySelection(int start[], int end[], int n)
+    {
+        // add your code here
+        List<Activity> l=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            l.add(new Activity(start[i],end[i]));
+        }
+        Collections.sort(l,new cmp());
+        int count=1;
+        int prev=0;
+        for(int i=1;i<n;i++){
+            if(l.get(i).start>l.get(prev).end){
+                count++;
+                prev=i;
+            }
+        }
+        return count;
+    }
+}
