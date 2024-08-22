@@ -1,0 +1,47 @@
+class cmp implements Comparator<Job>{
+    public int compare(Job a,Job b){
+        return b.profit-a.profit;
+    }
+}
+class Solution
+{
+    //Function to find the maximum profit and the number of jobs done.
+    int[] JobScheduling(Job arr[], int n)
+    {
+        // Your code here
+        Arrays.sort(arr,new cmp());
+        int time=0;
+        for(int i=0;i<n;i++){
+            time=Math.max(time,arr[i].deadline);
+        }
+        int check[]=new int[time+1];
+        int profit=0;
+        int index=0;
+        for(int i=0;i<n;i++){
+            for(int j=arr[i].deadline;j>=1;j--){
+                if(check[j]==0){
+                    check[j]=1;
+                    profit+=arr[i].profit;
+                    index++;
+                    break;
+                }
+            }
+        }
+        int result[]=new int[2];
+        result[0]=index;
+        result[1]=profit;
+        return result;
+        
+    }
+}
+
+/*
+class Job {
+    int id, profit, deadline;
+    Job(int x, int y, int z){
+        this.id = x;
+        this.deadline = y;
+        this.profit = z; 
+    }
+}
+*/
